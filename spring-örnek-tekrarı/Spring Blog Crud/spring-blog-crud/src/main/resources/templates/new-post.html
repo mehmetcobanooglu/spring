@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Yeni Post Ekle</title>
+</head>
+<body>
+<h1>Yeni Blog Postu</h1>
+
+<form th:action="@{/posts}" th:object="${post}" method="post">
+    <label>Başlık:</label>
+    <input type="text" th:field="*{title}" />
+    <br/><br/>
+
+    <label>İçerik:</label>
+    <textarea th:field="*{content}"></textarea>
+    <br/><br/>
+
+    <label>Kullanıcı ID:</label>
+    <input type="number" th:field="*{user.id}" />
+    <br/><br/>
+
+    <button type="submit">Kaydet</button>
+</form>
+
+</body>
+</html>

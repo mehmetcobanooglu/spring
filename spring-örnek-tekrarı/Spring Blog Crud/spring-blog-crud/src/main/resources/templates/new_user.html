@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Yeni Kullanıcı</title>
+</head>
+<body>
+<h1>Yeni Kullanıcı Ekle</h1>
+<form th:action="@{/users}" th:object="${user}" method="post">
+    <label>İsim:</label>
+    <input type="text" th:field="*{name}" />
+    <br/>
+    <label>Email:</label>
+    <input type="text" th:field="*{email}" />
+    <br/>
+    <button type="submit">Kaydet</button>
+</form>
+</body>
+</html>

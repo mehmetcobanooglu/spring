@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Blog Uygulaması</title>
+</head>
+<body>
+    <h1>Blog Yazıları</h1>
+
+    <a href="/posts/new">Yeni Post Ekle</a> | 
+    <a href="/users/new">Yeni Kullanıcı Ekle</a>
+
+    <ul>
+        <li th:each="post : ${posts}">
+            <b th:text="${post.title}"></b> - 
+            <span th:text="${post.content}"></span>
+        </li>
+    </ul>
+</body>
+</html>
