@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Maaş Sistemi</title>
+</head>
+<body>
+
+    <div class="header-title-container">
+        <h1>Maaş Yönetim Sistemi</h1>
+        <img src="kdr_logo.jpg" alt="Adanalı Kadir Usta Kebap">
+    </div>
+
+    <section>
+        <h2>Personel Ekle</h2>
+        <input id="empAd" placeholder="Ad">
+        <input id="empSoyad" placeholder="Soyad">
+        <input id="empMaas" placeholder="Maaş" type="number">
+        <button onclick="addEmployee()">Kaydet</button>
+    </section>
+
+    <hr>
+
+    <section>
+        <h2>Avans Ekle</h2>
+        <input id="avansEmpId" placeholder="Personel ID">
+        <input id="avansTutar" placeholder="Tutar" type="number">
+        <button onclick="giveAvans()">Avans Ver</button>
+    </section>
+
+    <section>
+        <h2>Gelmediği Gün Sayısı Ekle / Güncelle</h2>
+        <input id="gelmediEmpId" placeholder="Personel ID">
+        <input id="gelmediGun" placeholder="Gelmediği Gün Sayısı" type="number">
+        <button onclick="updateGelmediGun()">Güncelle</button>
+    </section>
+
+    <hr>
+<!-- 
+    <section>
+        <h2>Personeller</h2>
+        <button onclick="listEmployees()">Listele</button>
+        <table id="employeeTable" border="1"></table>
+    </section> -->
+
+    <hr>
+
+    
+    <section>
+        <h2>Aylık Maaşlar</h2>
+        <button onclick="hesaplaAylikMaas()">Hesapla</button>
+        <table id="maasTable" border="1"></table>
+    </section>
+
+    <hr>
+
+    <section>
+        <h2>Avans Sil</h2>
+        <input id="deleteEmpId" placeholder="Personel ID">
+        <button onclick="deleteEmployeeAvans()">Kişi Bazlı Avans Sil</button>
+        <button onclick="deleteAllAvans()">Tüm Avansları Sil</button>
+    </section>
+
+    <script src="app.js"></script>
+</body>
+</html>
