@@ -1,3 +1,4 @@
+
 package com.sporsalonu.yonetim.entity;
 
 import java.math.BigDecimal;
@@ -11,22 +12,21 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class Odeme {
+
+    public Odeme() {
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
+
     private BigDecimal tutar;
     private LocalDate odemeTarihi;
     private String odemeYontemi;
@@ -34,11 +34,11 @@ public class Odeme {
 
     @ManyToOne
     @JoinColumn(name = "uye_id")
-    @JsonBackReference
+    @JsonBackReference("uye-odemeler")
     private Uye uye;
 
     @ManyToOne
     @JoinColumn(name = "uyelik_id")
-    @JsonBackReference
+    @JsonBackReference("uyelik-odemeler")
     private Uyelik uyelik;
 }
