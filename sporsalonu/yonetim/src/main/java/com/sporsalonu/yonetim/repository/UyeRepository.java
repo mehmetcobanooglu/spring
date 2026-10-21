@@ -61,4 +61,25 @@ public interface UyeRepository extends JpaRepository<Uye, Long> {
     @Query("SELECT u FROM Uye u " + "JOIN u.uyelikler uy " + "WHERE u.yas >= :yas AND uy.aktif = true")
     List<Uye> findYasiBuyukAktifUyeler(@Param("yas") Integer yas);
 
+    @Query("SELECT u FROM Uye u " + "JOIN u.uyelikler uy " + "JOIN uy.paket p "
+            + "WHERE p.paketAdi = :paketAdi AND uy.aktif = true")
+    List<Uye> findAktifUyelerByPaketAdi(@Param("paketAdi") String paketAdi);
+
+    @Query("SELECT u FROM Uye u " + "left join u.uyelikler uy " + "where uy is null")
+    List<Uye> findUyeligiOlmayanUyeler();
+
+    @Query("SELECT u FROM Uye u JOIN FETCH u.uyelikler")
+    List<Uye> findUyelerWithUyelikler();
+
+    @Query("SELECT u FROM Uye u " + "JOIN FETCH u.uyelikler uy " + "JOIN FETCH uy.paket")
+    List<Uye> findUyelerWithUyeliklerAndPaket();
+
+    @Query("select u from Uye u " + "where u.yas >= :yas")
+    List<Uye> findYasiEsitVeyaBuyukUye(@Param("yas") Integer yas);
+
+    @Query("select u from Uye u " +
+            "where u.yas >= :yas AND u.email = :email")
+    List<Uye> findYasiEsitVeEmail(
+            @Param("yas") Integer yas,
+            @Param("email") String email);
 }

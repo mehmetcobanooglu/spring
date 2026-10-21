@@ -146,4 +146,36 @@ public class UyeController {
         return uyeService.findYasiBuyukAktifUyeler(yas);
     }
 
+    @GetMapping("/aktif-pakete-gore")
+    public List<Uye> findAktifUyelerByPaketAdi(@RequestParam String paketAdi) {
+        return uyeService.findAktifUyelerByPaketAdi(paketAdi);
+    }
+
+    @GetMapping("/uyeligi-olmayanlar")
+    public List<Uye> findUyeligiOlmayanUyeler() {
+        return uyeService.findUyeligiOlmayanUyeler();
+    }
+
+    @GetMapping("/fetch-uyelikler")
+    public List<Uye> findUyelerWithUyelikler() {
+        return uyeService.findUyelerWithUyelikler();
+    }
+
+    @GetMapping("/fetch-uyelikler-paket")
+    public List<Uye> findUyelerWithUyeliklerAndPaket() {
+        return uyeService.findUyelerWithUyeliklerAndPaket();
+    }
+
+    @GetMapping("/yas-esit-veya-buyuk")
+    public List<Uye> findYasiEsitVeyaBuyukUye(
+            @RequestParam Integer yas) {
+        return uyeService.findYasiEsitVeyaBuyukUye(yas);
+    }
+
+    @GetMapping("/yas-email")
+    public List<Uye> findYasiEsitVeEmail(
+            @RequestParam Integer yas,
+            @RequestParam String email) {
+        return uyeService.findYasiEsitVeEmail(yas, email);
+    }
 }

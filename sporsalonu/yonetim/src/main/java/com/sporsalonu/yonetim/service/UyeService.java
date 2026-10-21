@@ -124,4 +124,28 @@ public class UyeService {
         return uyeRepository.findYasiBuyukAktifUyeler(yas);
     }
 
+    public List<Uye> findAktifUyelerByPaketAdi(String paketAdi) {
+        return uyeRepository.findAktifUyelerByPaketAdi(paketAdi);
+    }
+
+    public List<Uye> findUyeligiOlmayanUyeler() {
+        return uyeRepository.findUyeligiOlmayanUyeler();
+    }
+
+    public List<Uye> findUyelerWithUyelikler() {
+        return uyeRepository.findUyelerWithUyelikler();
+    }
+
+    public List<Uye> findUyelerWithUyeliklerAndPaket() {
+        return uyeRepository.findUyelerWithUyeliklerAndPaket();
+    }
+
+    public List<Uye> findYasiEsitVeyaBuyukUye(Integer yas) {
+        return uyeRepository.findYasiEsitVeyaBuyukUye(yas);
+    }
+
+    public List<Uye> findYasiEsitVeEmail(Integer yas, String email) {
+        return uyeRepository.findYasiEsitVeEmail(yas, email);
+    }
+
 }
