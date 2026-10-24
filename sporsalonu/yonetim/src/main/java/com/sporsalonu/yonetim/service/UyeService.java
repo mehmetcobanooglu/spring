@@ -148,4 +148,8 @@ public class UyeService {
         return uyeRepository.findYasiEsitVeEmail(yas, email);
     }
 
+    public List<Uye> findKucukDegerBuyukDeger() {
+        return uyeRepository.findKucukDegerBuyukDeger();
+    }
+
 }

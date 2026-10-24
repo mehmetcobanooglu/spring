@@ -178,4 +178,9 @@ public class UyeController {
             @RequestParam String email) {
         return uyeService.findYasiEsitVeEmail(yas, email);
     }
+
+    @GetMapping("/yas-araligi-disinda")
+    public List<Uye> findKucukDegerBuyukDeger() {
+        return uyeService.findKucukDegerBuyukDeger();
+    }
 }

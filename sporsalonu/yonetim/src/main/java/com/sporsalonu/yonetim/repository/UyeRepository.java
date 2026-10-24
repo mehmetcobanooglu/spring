@@ -6,80 +6,147 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.sporsalonu.yonetim.entity.Paket;
 import com.sporsalonu.yonetim.entity.Uye;
 
 public interface UyeRepository extends JpaRepository<Uye, Long> {
-    List<Uye> findByAdContainingIgnoreCase(String ad);
+        List<Uye> findByAdContainingIgnoreCase(String ad);
 
-    List<Uye> findByYasGreaterThan(Integer yas);
+        List<Uye> findByYasGreaterThan(Integer yas);
 
-    List<Uye> findAllByOrderByYasAsc();
+        List<Uye> findAllByOrderByYasAsc();
 
-    List<Uye> findAllByOrderByYasDesc();
+        List<Uye> findAllByOrderByYasDesc();
 
-    List<Uye> findByYasBetween(
-            Integer minYas,
-            Integer maxYas);
+        List<Uye> findByYasBetween(
+                        Integer minYas,
+                        Integer maxYas);
 
-    List<Uye> findByAdNot(String ad);
+        List<Uye> findByAdNot(String ad);
 
-    List<Uye> findByEmailIsNotNull();
+        List<Uye> findByEmailIsNotNull();
 
-    List<Uye> findByEmailIsNull();
+        List<Uye> findByEmailIsNull();
 
-    List<Uye> findByAdAndSoyad(String ad, String soyad);
+        List<Uye> findByAdAndSoyad(String ad, String soyad);
 
-    List<Uye> findByAdOrSoyad(String ad, String soyad);
+        List<Uye> findByAdOrSoyad(String ad, String soyad);
 
-    List<Uye> findByYasLessThan(Integer yas);
+        List<Uye> findByYasLessThan(Integer yas);
 
-    List<Uye> findByYasLessThanEqual(Integer yas);
+        List<Uye> findByYasLessThanEqual(Integer yas);
 
-    List<Uye> findByAdStartingWith(String ad);
+        List<Uye> findByAdStartingWith(String ad);
 
-    List<Uye> findByAdEndingWith(String ad);
+        List<Uye> findByAdEndingWith(String ad);
 
-    List<Uye> findByYasIn(List<Integer> yaslar);
+        List<Uye> findByYasIn(List<Integer> yaslar);
 
-    List<Uye> findByYasNot(Integer yas);
+        List<Uye> findByYasNot(Integer yas);
 
-    List<Uye> findDistinctByAd(String ad);
+        List<Uye> findDistinctByAd(String ad);
 
-    Uye findFirstByOrderByYasAsc();
+        Uye findFirstByOrderByYasAsc();
 
-    List<Uye> findTop3ByOrderByYasDesc();
+        List<Uye> findTop3ByOrderByYasDesc();
 
-    @Query("SELECT u FROM Uye u WHERE u.yas >= :yas")
-    List<Uye> yasiBuyukVeyaEsitUyeBul(@Param("yas") Integer yas);
+        @Query("SELECT u FROM Uye u WHERE u.yas >= :yas")
+        List<Uye> yasiBuyukVeyaEsitUyeBul(@Param("yas") Integer yas);
 
-    @Query("SELECT u FROM Uye u " + "JOIN u.uyelikler uy " + "JOIN uy.paket p " + "WHERE p.paketAdi = :paketAdi")
-    List<Uye> findUyelerByPaketAdi(@Param("paketAdi") String paketAdi);
+        @Query("SELECT u FROM Uye u " + "JOIN u.uyelikler uy " + "JOIN uy.paket p " + "WHERE p.paketAdi = :paketAdi")
+        List<Uye> findUyelerByPaketAdi(@Param("paketAdi") String paketAdi);
 
-    @Query("Select u From Uye u " + "JOIN u.uyelikler uy " + "where uy.aktif = true")
-    List<Uye> findUyelerWithListAktifUyelik();
+        @Query("Select u From Uye u " + "JOIN u.uyelikler uy " + "where uy.aktif = true")
+        List<Uye> findUyelerWithListAktifUyelik();
 
-    @Query("SELECT u FROM Uye u " + "JOIN u.uyelikler uy " + "WHERE u.yas >= :yas AND uy.aktif = true")
-    List<Uye> findYasiBuyukAktifUyeler(@Param("yas") Integer yas);
+        @Query("SELECT u FROM Uye u " + "JOIN u.uyelikler uy " + "WHERE u.yas >= :yas AND uy.aktif = true")
+        List<Uye> findYasiBuyukAktifUyeler(@Param("yas") Integer yas);
 
-    @Query("SELECT u FROM Uye u " + "JOIN u.uyelikler uy " + "JOIN uy.paket p "
-            + "WHERE p.paketAdi = :paketAdi AND uy.aktif = true")
-    List<Uye> findAktifUyelerByPaketAdi(@Param("paketAdi") String paketAdi);
+        @Query("SELECT u FROM Uye u " + "JOIN u.uyelikler uy " + "JOIN uy.paket p "
+                        + "WHERE p.paketAdi = :paketAdi AND uy.aktif = true")
+        List<Uye> findAktifUyelerByPaketAdi(@Param("paketAdi") String paketAdi);
 
-    @Query("SELECT u FROM Uye u " + "left join u.uyelikler uy " + "where uy is null")
-    List<Uye> findUyeligiOlmayanUyeler();
+        @Query("SELECT u FROM Uye u " + "left join u.uyelikler uy " + "where uy is null")
+        List<Uye> findUyeligiOlmayanUyeler();
 
-    @Query("SELECT u FROM Uye u JOIN FETCH u.uyelikler")
-    List<Uye> findUyelerWithUyelikler();
+        @Query("SELECT u FROM Uye u JOIN FETCH u.uyelikler")
+        List<Uye> findUyelerWithUyelikler();
 
-    @Query("SELECT u FROM Uye u " + "JOIN FETCH u.uyelikler uy " + "JOIN FETCH uy.paket")
-    List<Uye> findUyelerWithUyeliklerAndPaket();
+        @Query("SELECT u FROM Uye u " + "JOIN FETCH u.uyelikler uy " + "JOIN FETCH uy.paket")
+        List<Uye> findUyelerWithUyeliklerAndPaket();
 
-    @Query("select u from Uye u " + "where u.yas >= :yas")
-    List<Uye> findYasiEsitVeyaBuyukUye(@Param("yas") Integer yas);
+        @Query("select u from Uye u " + "where u.yas >= :yas")
+        List<Uye> findYasiEsitVeyaBuyukUye(@Param("yas") Integer yas);
 
-    @Query("select u from Uye u " +
-            "where u.yas >= :yas AND u.email = :email")
-    List<Uye> findYasiEsitVeEmail(
-            @Param("yas") Integer yas,
-            @Param("email") String email);
+        @Query("select u from Uye u " +
+                        "where u.yas >= :yas AND u.email = :email")
+        List<Uye> findYasiEsitVeEmail(
+                        @Param("yas") Integer yas,
+                        @Param("email") String email);
+
+        @Query("select u from Uye u " + "where u.yas < 18  OR u.yas > 40 ")
+        List<Uye> findKucukDegerBuyukDeger();
+
+        @Query("select u from Uye u " + "where u.yas BETWEEN :minYas AND :maxYas")
+        List<Uye> findBetweenArasiDegerBul(@Param("minYas") Integer minYas, @Param("maxYas") Integer maxYas);
+
+        @Query("select u from Uye u " + "where u.ad LIKE  CONCAT(:ad, '%')")
+        List<Uye> findSiralamaliBul(@Param("ad") String ad);
+
+        @Query("select u from Uye u " + "ORDER BY u.ad ASC")
+        List<Uye> findUyelerAdaGoreSirali();
+
+        @Query("select u from Uye u " + "ORDER BY u.yas DESC")
+        List<Uye> findYasaGoreAzalanSirali();
+
+        @Query("select u from Uye u " + "ORDER BY u.yas DESC, u.ad ASC")
+        List<Uye> findUyelerYasVeAdaGoreSirali();
+
+        @Query("select p from Paket p " + "ORDER BY p.fiyat ASC")
+        List<Paket> findPaketleriFiyataGoreSirali();
+
+        @Query("select u from Uye u " + "ORDER BY u.soyad ASC , u.yas ASC")
+        List<Uye> findUyelerSoyadVeYaslarinaGoreSirali();
+
+        // Count ve Group By
+        @Query("Select COUNT(u) from Uye u")
+        Long countAllUyeler();
+
+        @Query("Select uy.paket, COUNT(uy) " + "FROM Uyelik uy " + "GROUP BY uy.paket")
+        List<Object[]> countUyeliklerPaketeGore();
+
+        @Query("select u.yas, COUNT(u) " + "FROM Uye u " + "GROUP BY u.yas")
+        List<Object[]> countUyelerYasaGore();
+
+        @Query("select p.fiyat, Count(p) " + "from Paket p " + "Group By p.fiyat")
+        List<Object[]> countPaketlerFiyataGore();
+
+        @Query("select uy.aktif, Count(uy) " + "from Uyelik uy " + "GROUP BY uy.aktif")
+        List<Object[]> countUyeliklerAktiflikDurumunaGore();
+
+        @Query("select uy.baslangicTarihi, Count(uy) " + "from Uyelik uy " + "GROUP BY uy.baslangicTarihi")
+        List<Object[]> countUyeliklerBaslangicTarihineGore();
+
+        @Query("select o.odemeYontemi, Count(o) " + "from Odeme o " + "GROUP BY o.odemeYontemi")
+        List<Object[]> countOdemelerYontemeGore();
+
+        @Query("SELECT o.odemeDurumu, COUNT(o) " +
+                        "FROM Odeme o " +
+                        "GROUP BY o.odemeDurumu")
+        List<Object[]> countOdemelerDurumaGore();
+
+        @Query("select o.odemeYontemi, o.odemeDurumu, Count(o)" + "FROM Odeme o "
+                        + "GROUP BY o.odemeYontemi ,o.odemeDurumu")
+        List<Object[]> countOdemelerYontemVeDurumaGore();
+
+        // HAVING
+
+        @Query("select o.odemeYontemi, Count(o) " + "FROM Odeme o " + "GROUP BY o.odemeYontemi "
+                        + " HAVING COUNT(o) > 5 ")
+        List<Object[]> countOdemelerYontemeGore2();
+
+        @Query("select u.yas , Count(u) " + "FROM Uye u " + "GROUP BY u.yas " + "HAVING COUNT(u) > 3")
+        List<Object[]> countUyelerYasaGore2();
+
+        @Query("select p.fiyat , Count(p) " + "FROM Paket p " + "GROUP BY p.fiyat " + "HAVING C")
 }
