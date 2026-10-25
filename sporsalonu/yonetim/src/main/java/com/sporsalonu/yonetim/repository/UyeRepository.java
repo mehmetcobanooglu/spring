@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.sporsalonu.yonetim.entity.Odeme;
 import com.sporsalonu.yonetim.entity.Paket;
 import com.sporsalonu.yonetim.entity.Uye;
 
@@ -204,5 +205,34 @@ public interface UyeRepository extends JpaRepository<Uye, Long> {
 
         @Query("SELECT SUM(o.tutar), MIN(o.tutar), MAX(o.tutar), AVG(o.tutar) FROM Odeme o")
         List<Object[]> odemeIstatistikleri();
+
+        @Query("select p from Paket p " + "where p.fiyat > " + "(select AVG(p2.fiyat) from Paket p2)")
+        List<Paket> ortalamaFiyattanPahaliPaketler();
+
+        @Query("SELECT p FROM Paket p " +
+                        "WHERE p.fiyat < " +
+                        "(SELECT MAX(p2.fiyat) FROM Paket p2)")
+        List<Paket> enPahaliPakettenUcuzPaketler();
+
+        @Query("select u From Uye u " + "where u.yas > " + "(Select AVG(u2.yas) from Uye u2)")
+        List<Uye> ortalamaYastanBuyukUyeler();
+
+        @Query("select p from  Paket p " + "where p.fiyat = " + "(Select MIN(p2.fiyat) FROM Paket p2)")
+        List<Paket> enUcuzPaketler();
+
+        @Query("SELECT p FROM Paket p " +
+                        "WHERE p.fiyat < " +
+                        "(SELECT SUM(p2.fiyat) / 2 FROM Paket p2)")
+        List<Paket> toplamFiyatYarisindanDusukPaketler();
+
+        @Query("SELECT p FROM Paket p " +
+                        "WHERE p.fiyat < " +
+                        "(SELECT MAX(p2.fiyat) FROM Paket p2)")
+        List<Paket> enPahaliPakettenUcuzPaketlerr();
+
+        @Query("SELECT o FROM Odeme o " +
+                        "WHERE o.tutar > " +
+                        "(SELECT AVG(o2.tutar) FROM Odeme o2)")
+        List<Odeme> ortalamaTutardanYuksekOdemeler();
 
 }
