@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import com.sporsalonu.yonetim.entity.Odeme;
 import com.sporsalonu.yonetim.entity.Paket;
 import com.sporsalonu.yonetim.entity.Uye;
+import com.sporsalonu.yonetim.entity.Uyelik;
 
 public interface UyeRepository extends JpaRepository<Uye, Long> {
         List<Uye> findByAdContainingIgnoreCase(String ad);
@@ -234,5 +235,17 @@ public interface UyeRepository extends JpaRepository<Uye, Long> {
                         "WHERE o.tutar > " +
                         "(SELECT AVG(o2.tutar) FROM Odeme o2)")
         List<Odeme> ortalamaTutardanYuksekOdemeler();
+
+        @Query("select u FROM Uye u " + "where exist " + "(select o from Odeme o Where o.uye = u)")
+        List<Uye> odemesiOlanUyeler();
+
+        @Query("select u From Uye u " + "where NOT EXISTS " + "(select o from Odeme o where o.uye = u)")
+        List<Uye> odemesiBulunmayanUyeler();
+
+        @Query("select p from Paket p " + "WHERE NOT EXISTS " + "(select uy from Uyelik uy where uy.paket = p)")
+        List<Paket> uyeligiOlmayanPaketler();
+
+        @Query("select uy from Uyelik uy " + "where not exists " + "(select o from Odeme o where o.uyelik = uy)")
+        List<Uyelik> odemesiOlmayanUyelikler();
 
 }
