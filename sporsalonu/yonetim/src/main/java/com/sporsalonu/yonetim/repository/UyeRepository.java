@@ -248,4 +248,18 @@ public interface UyeRepository extends JpaRepository<Uye, Long> {
         @Query("select uy from Uyelik uy " + "where not exists " + "(select o from Odeme o where o.uyelik = uy)")
         List<Uyelik> odemesiOlmayanUyelikler();
 
+        @Query("select u From Uye u " + "where exists " + "(select uy from Uyelik uy where uy.uye = u)")
+        List<Uye> uyeligiOlanUyeler();
+
+        @Query("select u from Uye u " + "where not exists " + "(select uy From Uyelik uy where uy.uye = u)")
+        List<Uye> uyeligiOlmayanUyeler();
+
+        @Query("SELECT uy FROM Uyelik uy " +
+                        "WHERE EXISTS " +
+                        "(SELECT o FROM Odeme o WHERE o.uyelik = uy)")
+        List<Uyelik> enAzBirOdemesiOlanUyelikler();
+
+        @Query("select uy From Uyelik uy " + "where not exists " + "(select o From Odeme o where o.uyelik = uy)")
+        List<Uyelik> hicOdemesiOlmayanUyelikler();
+
 }
