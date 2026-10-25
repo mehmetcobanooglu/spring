@@ -1,5 +1,6 @@
 package com.sporsalonu.yonetim.repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -167,4 +168,41 @@ public interface UyeRepository extends JpaRepository<Uye, Long> {
 
         @Query("select u.yas, Count(u) " + "from Uye u " + "Group By  u.yas " + "Having Count(u) >= 4")
         List<Object[]> countUyelerYasaGoreFinal();
+
+        @Query("select SUM(o.tutar) from Odeme o ")
+        BigDecimal toplamOdemeTutari();
+
+        @Query("select AVG(o.tutar) from Odeme o")
+        Double ortalamaOdemeTutari();
+
+        @Query("select SUM(p.fiyat) from Paket p")
+        Double toplamPaketFiyati();
+
+        @Query("select AVG(p.fiyat) from Paket p")
+        Double ortalamaPaketFiyati();
+
+        @Query("SELECT MIN(p.fiyat) FROM Paket p")
+        Double enDusukPaketFiyati();
+
+        @Query("SELECT MIN(o.tutar) FROM Odeme o")
+        BigDecimal enDusukOdemeTutari();
+
+        @Query("SELECT MAX(p.fiyat) FROM Paket p")
+        Double enYuksekPaketFiyati();
+
+        @Query("SELECT MAX(o.tutar) FROM Odeme o")
+        BigDecimal enYuksekOdemeTutari();
+
+        @Query("SELECT SUM(o.tutar) FROM Odeme o")
+        BigDecimal toplamOdemeTutarii();
+
+        @Query("SELECT AVG(o.tutar) FROM Odeme o")
+        Double ortalamaOdemeTutarii();
+
+        @Query("SELECT MIN(p.fiyat), MAX(p.fiyat), AVG(p.fiyat) FROM Paket p")
+        List<Object[]> paketFiyatIstatistikleri();
+
+        @Query("SELECT SUM(o.tutar), MIN(o.tutar), MAX(o.tutar), AVG(o.tutar) FROM Odeme o")
+        List<Object[]> odemeIstatistikleri();
+
 }
