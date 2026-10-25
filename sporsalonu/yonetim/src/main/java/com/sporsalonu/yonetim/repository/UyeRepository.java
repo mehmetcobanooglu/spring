@@ -153,4 +153,18 @@ public interface UyeRepository extends JpaRepository<Uye, Long> {
 
         @Query("select p.fiyat, COUNT(p) " + "FROM Paket p " + "GROUP BY p.fiyat " + "HAVING COUNT(p) > 2")
         List<Object[]> countPaketlerFiyataGorre();
+
+        @Query("select uy.aktif, Count(uy) " + "FROM Uyelik uy " + "GROUP BY uy.aktif " + "HAVING COUNT(uy) > 10")
+        List<Object[]> countUyelikAktifligeGore();
+
+        @Query("select o.odemeYontemi, COUNT(o) " + "FROM Odeme o " + "GROUP BY o.odemeYontemi "
+                        + "HAVING COUNT(o) >= 5 ")
+        List<Object[]> countOdemelerYontemeGore3();
+
+        @Query("select o.odemeYontemi ,o.odemeDurumu " + "from Odeme o " + "Group by o.odemeYontemi, o.odemeDurumu "
+                        + "having Count(o) > 5")
+        List<Object[]> countOdemelerYontemVeDurumaGore2();
+
+        @Query("select u.yas, Count(u) " + "from Uye u " + "Group By  u.yas " + "Having Count(u) >= 4")
+        List<Object[]> countUyelerYasaGoreFinal();
 }
