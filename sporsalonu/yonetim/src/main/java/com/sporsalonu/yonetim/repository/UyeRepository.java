@@ -262,4 +262,33 @@ public interface UyeRepository extends JpaRepository<Uye, Long> {
         @Query("select uy From Uyelik uy " + "where not exists " + "(select o From Odeme o where o.uyelik = uy)")
         List<Uyelik> hicOdemesiOlmayanUyelikler();
 
+        @Query("select p From Paket p " + "where p.fiyat IN(500,1000,1500)")
+        List<Paket> belirliFiyatlardakiPaketler();
+
+        @Query("select p From Paket p " + "where p.fiyat NOT IN(500, 1000,1500,2000)")
+        List<Paket> belirliFiyatlarDisindakiPaketler();
+
+        @Query("select uy From Uyelik uy " + "where uy.uye.id IN " + "(SELECT o.uye.id From Odeme o)")
+        List<Uyelik> odemeYapanUyelerinUyelikleri();
+
+        @Query("select uy From Uyelik uy " + "where u.uy.id NOT IN " + "(SELECT o.uye.id From Odeme o)")
+        List<Uyelik> odemeYapmayanUyelerinUyelikleri();
+
+        @Query("select p From Paket p " + "where p.fiyat IN " + "(SELECT MAX(p2.fiyat) From Paket p2 )")
+        List<Paket> enPahaliFiyattakiPaketler();
+
+        @Query("SELECT p FROM Paket p " +
+                        "WHERE p.id NOT IN " +
+                        "(SELECT uy.paket.id FROM Uyelik uy)")
+        List<Paket> uyeligiOlmayanPaketlerr();
+
+        @Query("SELECT uy FROM Uyelik uy " +
+                        "WHERE uy.uye.email IN " +
+                        "(SELECT o.uye.email FROM Odeme o)")
+        List<Uyelik> odemeYapanUyelerinUyeliklerii();
+
+        @Query("SELECT uy FROM Uyelik uy " +
+                        "WHERE uy.uye.id NOT IN " +
+                        "(SELECT o.uye.id FROM Odeme o)")
+        List<Uyelik> odemeYapmayanUyelerinUyeliklerii();
 }
