@@ -291,4 +291,13 @@ public interface UyeRepository extends JpaRepository<Uye, Long> {
                         "WHERE uy.uye.id NOT IN " +
                         "(SELECT o.uye.id FROM Odeme o)")
         List<Uyelik> odemeYapmayanUyelerinUyeliklerii();
+
+        @Query("select u from Uye u " + "where u.telefon IS NULL")
+        List<Uye> telefonNumarasiOlmayanUyeler();
+
+        @Query("SELECT u FROM Uye u WHERE u.telefon IS NOT NULL")
+        List<Uye> telefonNumarasiOlanUyeler();
+
+        @Query("select uy FROM Uyelik uy where u.uy IS NULL")
+        List<Uye> uyeligiOlmayanUyelerr();
 }
