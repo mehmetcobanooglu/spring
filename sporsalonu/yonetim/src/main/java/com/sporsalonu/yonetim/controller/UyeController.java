@@ -166,12 +166,6 @@ public class UyeController {
         return uyeService.findUyelerWithUyeliklerAndPaket();
     }
 
-    @GetMapping("/yas-esit-veya-buyuk")
-    public List<Uye> findYasiEsitVeyaBuyukUye(
-            @RequestParam Integer yas) {
-        return uyeService.findYasiEsitVeyaBuyukUye(yas);
-    }
-
     @GetMapping("/yas-email")
     public List<Uye> findYasiEsitVeEmail(
             @RequestParam Integer yas,
