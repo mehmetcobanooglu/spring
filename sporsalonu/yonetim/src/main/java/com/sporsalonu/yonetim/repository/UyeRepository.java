@@ -206,4 +206,67 @@ public interface UyeRepository extends JpaRepository<Uye, Long> {
 
         // Görev: Üyeleri yaşlarına göre sınıflandırmak istiyoruz.
 
+        // CASE → Koşullu işlemi başlatır.
+        // WHEN → Koşulu belirtir.
+        // THEN → Koşul doğruysa döndürülecek değeri belirtir.
+        // ELSE → Hiçbir koşul sağlanmazsa döndürülecek değerdir.
+        // - END → CASE bloğunu bitirir.
+        @Query("""
+                            SELECT u.ad,
+                                   u.yas,
+                                   CASE
+                                       WHEN u.yas < 18 THEN 'Reşit Değil'
+                                       ELSE 'Reşit'
+                                   END
+                            FROM Uye u
+                        """)
+        List<Object[]> uyeleriYasinaGoreSiniflandir();
+
+        // Üyeleri yaşlarına göre üç gruba ayır:
+
+        /*
+         * 18 yaşından küçük → Çocuk
+         * 18–30 yaş arası → Genç
+         * 30 yaşından büyük → Yetişkin
+         */
+        @Query("""
+                        SELECT u.ad, u.yas,
+                        CASE
+                            WHEN u.yas < 18 THEN 'Çocuk'
+                            WHEN u.yas <= 30 THEN 'Genç'
+                            ELSE 'Yetişkin'
+                        END
+                        FROM Uye u
+                        """)
+        List<Object[]> yasaGoreGrupla();
+
+        // Üyeleri yaşlarına göre sınıflandır:
+        /*
+         * 18'den küçük → Çocuk
+         * 
+         * 
+         * 
+         * 18–25 → Genç
+         * 
+         * 
+         * 
+         * 26–40 → Orta Yaş
+         * 
+         * 
+         * 
+         * 40'tan büyük → İleri Yaş
+         */
+
+        @Query("""
+                        SELECT u.yas, u.ad,
+                        CASE
+                            WHEN u.yas < 18 THEN 'Çocuk'
+                            WHEN u.yas < 26 THEN 'genç'
+                            WHEN u.yas < 40 THEN 'orta yas'
+                            ELSE 'ileri yas'
+                        END
+                        FROM Uye u
+                        """)
+        List<Object[]> uyeleriYasinaGore();
+
 }
