@@ -204,4 +204,6 @@ public interface UyeRepository extends JpaRepository<Uye, Long> {
         @Query("SELECT u FROM Uye u WHERE u.uyelikler IS EMPTY")
         List<Uye> uyeligiOlmayanUyeler2();
 
+        // Görev: Üyeleri yaşlarına göre sınıflandırmak istiyoruz.
+
 }
