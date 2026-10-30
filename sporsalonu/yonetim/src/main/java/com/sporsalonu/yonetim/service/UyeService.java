@@ -140,10 +140,6 @@ public class UyeService {
         return uyeRepository.findUyelerWithUyeliklerAndPaket();
     }
 
-    public List<Uye> findYasiEsitVeyaBuyukUye(Integer yas) {
-        return uyeRepository.findYasiEsitVeyaBuyukUye(yas);
-    }
-
     public List<Uye> findYasiEsitVeEmail(Integer yas, String email) {
         return uyeRepository.findYasiEsitVeEmail(yas, email);
     }
