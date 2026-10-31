@@ -99,4 +99,22 @@ public interface PaketRepository extends JpaRepository<Paket, Long> {
         @Query("SELECT p FROM Paket p WHERE p.uyelikler IS EMPTY")
         List<Paket> uyeligiOlmayanPaketler2();
 
+        @Query("""
+                        SELECT NULLIF(p.fiyat, 0)
+                        FROM Paket p
+                        """)
+        List<Double> sifirdanFarkliDeger();
+
+        @Query("""
+                        SELECT NULLIF(p.fiyat, 500)
+                        FROM Paket p
+                        """)
+        List<Double> paketMevcutDeger();
+
+        @Query("""
+                        SELECT COALESCE(NULLIF(p.fiyat, 500), 0)
+                        FROM Paket p
+                        """)
+        List<Double> nullifCoalesceKullanimi();
+
 }

@@ -113,4 +113,10 @@ public interface OdemeRepository extends JpaRepository<Odeme, Long> {
                         """)
         List<Object[]> odemeDurumlariniGetir();
 
+        @Query("""
+                        SELECT NULLIF(o.odemeDurumu, 'BEKLEMEDE')
+                        FROM Odeme o
+                        """)
+        List<String> odemeDurumununMevcutDegeri();
+
 }
