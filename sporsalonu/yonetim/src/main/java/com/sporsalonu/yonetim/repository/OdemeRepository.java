@@ -108,4 +108,9 @@ public interface OdemeRepository extends JpaRepository<Odeme, Long> {
                         """)
         List<Object[]> odemeDurumlariniSiniflandir();
 
+        @Query("""
+                                Select o.tutar, COALESCE(o.odemeDurumu , 'Durum Belirtilmemiş') From Odeme o
+                        """)
+        List<Object[]> odemeDurumlariniGetir();
+
 }

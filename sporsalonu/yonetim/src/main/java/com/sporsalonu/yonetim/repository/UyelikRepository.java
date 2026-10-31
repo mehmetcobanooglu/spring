@@ -100,4 +100,25 @@ public interface UyelikRepository extends JpaRepository<Uyelik, Long> {
                         """)
         List<Object[]> uyelikDurumlariniSiniflandir();
 
+        @Query("""
+                                      Select uy.baslangicTarihi, COALESCE(uy.baslangicTarihi , 0)
+                        FROM Uyelik uy      """)
+        List<Object[]> uyelikBaslangicTarihleriniGetir();
+
+        /*
+         * NULLIF nedir?
+         * NULLIF(değer1, değer2) iki değeri karşılaştırır:
+         * - İkisi eşitse NULL döndürür.
+         * - Eşit değilse ilk değeri döndürür.
+         */
+
+        @Query("""
+                               SELECT o.odemeDurumu, NULLIF(o.odemeDurumu, 'ODENDİ') FROM Odeme o
+                        """)
+        List<Object[]> odemeDurumlariniGetir();
+        /*
+         * Burada odemeDurumu değeri 'ÖDENDİ' ise ikinci sütun NULL olur. Farklıysa
+         * mevcut durum değerini döndürür.
+         */
+
 }

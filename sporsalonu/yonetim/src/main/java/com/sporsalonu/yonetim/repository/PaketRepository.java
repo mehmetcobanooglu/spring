@@ -99,17 +99,4 @@ public interface PaketRepository extends JpaRepository<Paket, Long> {
         @Query("SELECT p FROM Paket p WHERE p.uyelikler IS EMPTY")
         List<Paket> uyeligiOlmayanPaketler2();
 
-        @Query("""
-
-                        select p.paketAdi,
-                        CASE
-                        WHEN p.fiyat < 500 THEN 'Ekonomik'
-                        WHEN p.fiyat < 1000  THEN 'Standart'
-                        else 'Premium'
-                        END
-                        From Paket p
-
-                        """)
-        List<Object[]> paketleriFiyatinaGöreSiniflandir();
-
 }
