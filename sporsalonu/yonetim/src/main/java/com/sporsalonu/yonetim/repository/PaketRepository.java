@@ -117,4 +117,13 @@ public interface PaketRepository extends JpaRepository<Paket, Long> {
                         """)
         List<Double> nullifCoalesceKullanimi();
 
+        @Query("Select p From Paket p " + "WHERE p.fiyat< 1000 ORDER BY p.fiyat DESC")
+        List<Paket> bindenKucukSirala();
+
+        @Query("select p from Paket p " + "where p.fiyat BETWEEN 500 and 1500")
+        List<Paket> arasindaDegerBul();
+
+        @Query("select MAX(p.fiyat) From Paket p")
+        Double enPahali();
+
 }

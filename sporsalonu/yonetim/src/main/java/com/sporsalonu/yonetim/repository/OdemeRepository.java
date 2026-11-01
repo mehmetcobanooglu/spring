@@ -119,4 +119,13 @@ public interface OdemeRepository extends JpaRepository<Odeme, Long> {
                         """)
         List<String> odemeDurumununMevcutDegeri();
 
+        @Query("Select o From Odeme o " + "where o.tutar > 1000")
+        List<Odeme> bindenBüyükGetir();
+
+        @Query("select o From Odeme o " + "where o.odemeYontemi IN('NAKİT', 'KREDİ KARTI')")
+        List<Odeme> nakitMiKrediKarti();
+
+        @Query("select SUM(o.tutar) From Odeme o")
+        BigDecimal toplamTutarHesapla();
+
 }

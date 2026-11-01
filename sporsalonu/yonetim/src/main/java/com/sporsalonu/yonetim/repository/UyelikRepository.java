@@ -10,115 +10,124 @@ import com.sporsalonu.yonetim.entity.Uyelik;
 
 public interface UyelikRepository extends JpaRepository<Uyelik, Long> {
 
-        // GROUP BY
+    // GROUP BY
 
-        // Üyelikleri paketlerine göre grupla ve say
-        @Query("SELECT uy.paket, COUNT(uy) FROM Uyelik uy GROUP BY uy.paket")
-        List<Object[]> countUyeliklerPaketeGore();
+    // Üyelikleri paketlerine göre grupla ve say
+    @Query("SELECT uy.paket, COUNT(uy) FROM Uyelik uy GROUP BY uy.paket")
+    List<Object[]> countUyeliklerPaketeGore();
 
-        // Üyelikleri aktiflik durumuna göre grupla
-        @Query("SELECT uy.aktif, COUNT(uy) FROM Uyelik uy GROUP BY uy.aktif")
-        List<Object[]> countUyeliklerAktiflikDurumunaGore();
+    // Üyelikleri aktiflik durumuna göre grupla
+    @Query("SELECT uy.aktif, COUNT(uy) FROM Uyelik uy GROUP BY uy.aktif")
+    List<Object[]> countUyeliklerAktiflikDurumunaGore();
 
-        // Üyelikleri başlangıç tarihine göre grupla
-        @Query("SELECT uy.baslangicTarihi, COUNT(uy) FROM Uyelik uy GROUP BY uy.baslangicTarihi")
-        List<Object[]> countUyeliklerBaslangicTarihineGore();
+    // Üyelikleri başlangıç tarihine göre grupla
+    @Query("SELECT uy.baslangicTarihi, COUNT(uy) FROM Uyelik uy GROUP BY uy.baslangicTarihi")
+    List<Object[]> countUyeliklerBaslangicTarihineGore();
 
-        // HAVING
+    // HAVING
 
-        // 10'dan fazla üyeliği bulunan aktiflik grupları
-        @Query("SELECT uy.aktif, COUNT(uy) FROM Uyelik uy " +
-                        "GROUP BY uy.aktif HAVING COUNT(uy) > 10")
-        List<Object[]> countUyelikAktifligeGore();
+    // 10'dan fazla üyeliği bulunan aktiflik grupları
+    @Query("SELECT uy.aktif, COUNT(uy) FROM Uyelik uy " +
+            "GROUP BY uy.aktif HAVING COUNT(uy) > 10")
+    List<Object[]> countUyelikAktifligeGore();
 
-        // EXISTS
+    // EXISTS
 
-        // En az bir ödemesi bulunan üyelikler
-        @Query("SELECT uy FROM Uyelik uy " +
-                        "WHERE EXISTS (SELECT o FROM Odeme o WHERE o.uyelik = uy)")
-        List<Uyelik> enAzBirOdemesiOlanUyelikler();
+    // En az bir ödemesi bulunan üyelikler
+    @Query("SELECT uy FROM Uyelik uy " +
+            "WHERE EXISTS (SELECT o FROM Odeme o WHERE o.uyelik = uy)")
+    List<Uyelik> enAzBirOdemesiOlanUyelikler();
 
-        // NOT EXISTS
+    // NOT EXISTS
 
-        // Hiç ödemesi bulunmayan üyelikler
-        @Query("SELECT uy FROM Uyelik uy " +
-                        "WHERE NOT EXISTS (SELECT o FROM Odeme o WHERE o.uyelik = uy)")
-        List<Uyelik> hicOdemesiOlmayanUyelikler();
+    // Hiç ödemesi bulunmayan üyelikler
+    @Query("SELECT uy FROM Uyelik uy " +
+            "WHERE NOT EXISTS (SELECT o FROM Odeme o WHERE o.uyelik = uy)")
+    List<Uyelik> hicOdemesiOlmayanUyelikler();
 
-        // IN
+    // IN
 
-        // Ödeme yapan üyelerin üyelikleri
-        @Query("SELECT uy FROM Uyelik uy " +
-                        "WHERE uy.uye.id IN (SELECT o.uye.id FROM Odeme o)")
-        List<Uyelik> odemeYapanUyelerinUyelikleri();
+    // Ödeme yapan üyelerin üyelikleri
+    @Query("SELECT uy FROM Uyelik uy " +
+            "WHERE uy.uye.id IN (SELECT o.uye.id FROM Odeme o)")
+    List<Uyelik> odemeYapanUyelerinUyelikleri();
 
-        // NOT IN
+    // NOT IN
 
-        // Ödeme yapmayan üyelerin üyelikleri
-        @Query("SELECT uy FROM Uyelik uy " +
-                        "WHERE uy.uye.id NOT IN (SELECT o.uye.id FROM Odeme o)")
-        List<Uyelik> odemeYapmayanUyelerinUyelikleri();
+    // Ödeme yapmayan üyelerin üyelikleri
+    @Query("SELECT uy FROM Uyelik uy " +
+            "WHERE uy.uye.id NOT IN (SELECT o.uye.id FROM Odeme o)")
+    List<Uyelik> odemeYapmayanUyelerinUyelikleri();
 
-        // IS EMPTY
+    // IS EMPTY
 
-        // Hiç ödemesi olmayan üyelikler
-        @Query("SELECT uy FROM Uyelik uy WHERE uy.odemeler IS EMPTY")
-        List<Uyelik> odemesiOlmayanUyelikler();
+    // Hiç ödemesi olmayan üyelikler
+    @Query("SELECT uy FROM Uyelik uy WHERE uy.odemeler IS EMPTY")
+    List<Uyelik> odemesiOlmayanUyelikler();
 
-        // IS NOT EMPTY
+    // IS NOT EMPTY
 
-        // En az bir ödemesi olan üyelikler
-        @Query("SELECT uy FROM Uyelik uy WHERE uy.odemeler IS NOT EMPTY")
-        List<Uyelik> odemesiOlanUyelikler();
+    // En az bir ödemesi olan üyelikler
+    @Query("SELECT uy FROM Uyelik uy WHERE uy.odemeler IS NOT EMPTY")
+    List<Uyelik> odemesiOlanUyelikler();
 
-        // Üyelikleri aktiflik durumuna göre sınıflandır:
-        /*
-         * - aktif = true → Aktif Üyelik
-         * - aktif = false → Pasif Üyelik
-         */
+    // Üyelikleri aktiflik durumuna göre sınıflandır:
+    /*
+     * - aktif = true → Aktif Üyelik
+     * - aktif = false → Pasif Üyelik
+     */
 
-        @Query("""
-                        SELECT uy.aktif,
-                        CASE
-                            WHEN uy.aktif = true THEN 'Aktif Üyelik'
-                            ELSE 'Pasif Üyelik'
-                        END
-                        FROM Uyelik uy
-                        """)
-        List<Object[]> uyelikleriDurumunaGoreSiniflandir();
+    @Query("""
+            SELECT uy.aktif,
+            CASE
+                WHEN uy.aktif = true THEN 'Aktif Üyelik'
+                ELSE 'Pasif Üyelik'
+            END
+            FROM Uyelik uy
+            """)
+    List<Object[]> uyelikleriDurumunaGoreSiniflandir();
 
-        @Query("""
-                        SELECT uy.aktif,
-                        CASE
-                            WHEN uy.aktif = true AND uy.baslangicTarihi IS NOT NULL
-                                THEN 'AKTİF VE BAŞLAMIŞ'
-                            WHEN uy.aktif = false
-                                THEN 'PASİF'
-                            ELSE 'Kontrol Edilecek'
-                        END
-                        FROM Uyelik uy
-                        """)
-        List<Object[]> uyelikDurumlariniSiniflandir();
+    @Query("""
+            SELECT uy.aktif,
+            CASE
+                WHEN uy.aktif = true AND uy.baslangicTarihi IS NOT NULL
+                    THEN 'AKTİF VE BAŞLAMIŞ'
+                WHEN uy.aktif = false
+                    THEN 'PASİF'
+                ELSE 'Kontrol Edilecek'
+            END
+            FROM Uyelik uy
+            """)
+    List<Object[]> uyelikDurumlariniSiniflandir();
 
-        @Query("""
-                                      Select uy.baslangicTarihi, COALESCE(uy.baslangicTarihi , 0)
-                        FROM Uyelik uy      """)
-        List<Object[]> uyelikBaslangicTarihleriniGetir();
+    @Query("""
+                          Select uy.baslangicTarihi, COALESCE(uy.baslangicTarihi , 0)
+            FROM Uyelik uy      """)
+    List<Object[]> uyelikBaslangicTarihleriniGetir();
 
-        /*
-         * NULLIF nedir?
-         * NULLIF(değer1, değer2) iki değeri karşılaştırır:
-         * - İkisi eşitse NULL döndürür.
-         * - Eşit değilse ilk değeri döndürür.
-         */
+    /*
+     * NULLIF nedir?
+     * NULLIF(değer1, değer2) iki değeri karşılaştırır:
+     * - İkisi eşitse NULL döndürür.
+     * - Eşit değilse ilk değeri döndürür.
+     */
 
-        @Query("""
-                               SELECT o.odemeDurumu, NULLIF(o.odemeDurumu, 'ODENDİ') FROM Odeme o
-                        """)
-        List<Object[]> odemeDurumlariniGetir();
-        /*
-         * Burada odemeDurumu değeri 'ÖDENDİ' ise ikinci sütun NULL olur. Farklıysa
-         * mevcut durum değerini döndürür.
-         */
+    @Query("""
+                   SELECT o.odemeDurumu, NULLIF(o.odemeDurumu, 'ODENDİ') FROM Odeme o
+            """)
+    List<Object[]> odemeDurumlariniGetir();
+    /*
+     * Burada odemeDurumu değeri 'ÖDENDİ' ise ikinci sütun NULL olur. Farklıysa
+     * mevcut durum değerini döndürür.
+     */
+
+    @Query("SELECT uy from Uyelik uy " + "where uy.aktif = true ORDER BY uy.baslangicTarihi desc")
+    List<Uyelik> uyelikleriYenidenSirala();
+
+    @Query("select uy From Uyelik uy " + "where not uy.aktif = true ")
+    List<Uyelik> aktifOlmayanUyelikler();
+
+    @Query("select Count(uy) From Uyelik uy")
+    Long uyelikSayisi();
 
 }
