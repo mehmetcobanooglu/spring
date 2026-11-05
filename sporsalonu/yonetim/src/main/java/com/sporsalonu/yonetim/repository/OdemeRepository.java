@@ -128,4 +128,6 @@ public interface OdemeRepository extends JpaRepository<Odeme, Long> {
         @Query("select SUM(o.tutar) From Odeme o")
         BigDecimal toplamTutarHesapla();
 
+        @Query("select o.odemeDurumu , Count(o) From Odeme o GROUP BY o.odemeDurumu ")
+        List<Object[]> odemeDurumuGruplandirilmasi();
 }

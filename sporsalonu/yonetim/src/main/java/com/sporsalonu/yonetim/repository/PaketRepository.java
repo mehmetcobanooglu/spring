@@ -126,4 +126,7 @@ public interface PaketRepository extends JpaRepository<Paket, Long> {
         @Query("select MAX(p.fiyat) From Paket p")
         Double enPahali();
 
+        @Query("select p.fiyat, AVG(p.fiyat) From Paket p GROUP BY p.fiyat HAVING AVG(p.fiyat) > 1000  ")
+        List<Object[]> paketOrtalamaFiyatlari();
+
 }
