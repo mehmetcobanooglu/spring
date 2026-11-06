@@ -129,4 +129,10 @@ public interface PaketRepository extends JpaRepository<Paket, Long> {
         @Query("select p.fiyat, AVG(p.fiyat) From Paket p GROUP BY p.fiyat HAVING AVG(p.fiyat) > 1000  ")
         List<Object[]> paketOrtalamaFiyatlari();
 
+        @Query("select p From Paket p WHERE p.fiyat > (select AVG(p2.fiyat) from Paket p2)")
+        List<Paket> ortalamaPaketAlistirmasi();
+
+        @Query("Select p From Paket p WHERE p.fiyat = (select MAX(p2.fiyat) From Paket p2)")
+        List<Paket> enpahaliPAKET();
+
 }

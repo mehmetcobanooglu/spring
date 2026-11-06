@@ -130,4 +130,8 @@ public interface OdemeRepository extends JpaRepository<Odeme, Long> {
 
         @Query("select o.odemeDurumu , Count(o) From Odeme o GROUP BY o.odemeDurumu ")
         List<Object[]> odemeDurumuGruplandirilmasi();
+
+        @Query("select o from Odeme o WHERE o.tutar > (select AVG(o2.tutar) FROM Odeme o2) ")
+        List<Odeme> ortalamaninUstundekiOdemeler();
+
 }

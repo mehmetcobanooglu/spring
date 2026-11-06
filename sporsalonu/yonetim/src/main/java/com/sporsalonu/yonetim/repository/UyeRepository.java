@@ -297,4 +297,15 @@ public interface UyeRepository extends JpaRepository<Uye, Long> {
         @Query("select COUNT(u) From Uye u " + "where u.yas>18")
         Long enBuyukYas();
 
+        @Query("""
+                        SELECT u
+                        FROM Uye u
+                        WHERE EXISTS (
+                            SELECT uy.id
+                            FROM Uyelik uy
+                            WHERE uy.uye = u
+                        )
+                        """)
+        List<Uye> enAzBirUyeligiBulunan();
+
 }

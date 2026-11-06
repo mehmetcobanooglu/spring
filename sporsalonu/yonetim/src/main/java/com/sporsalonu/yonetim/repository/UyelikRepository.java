@@ -130,4 +130,18 @@ public interface UyelikRepository extends JpaRepository<Uyelik, Long> {
     @Query("select Count(uy) From Uyelik uy")
     Long uyelikSayisi();
 
+    @Query("""
+            SELECT uy
+            FROM Uyelik uy
+            WHERE NOT EXISTS (
+                SELECT o.id
+                FROM Odeme o
+                WHERE o.uyelik = uy
+            )
+            """)
+    List<Uyelik> odemesiBulunmayanUyelikler();
+
+    @Query("select uy From Uyelik uy WHERE NOT EXİSTS(select o From Odeme o Where o.uyelik = uy)")
+    List<Uyelik> odemesiolmayanuyelik();
+
 }
