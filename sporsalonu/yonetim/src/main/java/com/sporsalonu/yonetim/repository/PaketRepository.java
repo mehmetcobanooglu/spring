@@ -64,8 +64,15 @@ public interface PaketRepository extends JpaRepository<Paket, Long> {
         List<Paket> enPahaliPakettenUcuzPaketler();
 
         // En ucuz paketler
-        @Query("SELECT p FROM Paket p " +
-                        "WHERE p.fiyat = (SELECT MIN(p2.fiyat) FROM Paket p2)")
+        // En ucuz paketler
+        @Query(value = """
+                        SELECT *
+                        FROM paket
+                        WHERE fiyat = (
+                            SELECT MIN(fiyat)
+                            FROM paket
+                        )
+                        """, nativeQuery = true)
         List<Paket> enUcuzPaketler();
 
         // Toplam paket fiyatının yarısından düşük paketler

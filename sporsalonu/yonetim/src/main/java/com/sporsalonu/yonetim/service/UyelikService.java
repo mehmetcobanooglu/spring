@@ -34,9 +34,14 @@ public class UyelikService {
 
     @Transactional
     public void uyelikOlustur(Uyelik uyelik, Odeme odeme) {
-        uyelikRepository.save(uyelik);
-        // throw new RuntimeException("Ödeme İşlemi Başarısız!")
-        odemeRepository.save(odeme);
 
+        uyelikRepository.saveAndFlush(uyelik);
+
+        odeme.setUyelik(uyelik);
+        odeme.setUye(uyelik.getUye());
+
+        odemeRepository.saveAndFlush(odeme);
+
+        throw new RuntimeException("Ödeme işlemi başarısız!");
     }
 }
