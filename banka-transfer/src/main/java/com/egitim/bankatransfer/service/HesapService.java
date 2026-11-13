@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.egitim.bankatransfer.entity.Hesap;
 import com.egitim.bankatransfer.repository.HesapRepository;
 
+import jakarta.persistence.Id;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
