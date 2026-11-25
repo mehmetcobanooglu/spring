@@ -3,6 +3,8 @@ package com.jpa.jpa_performans.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.annotations.BatchSize;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -32,6 +34,9 @@ public class Musteri {
     private String email;
 
     @JsonManagedReference
+    // İlişkili verileri yüklerken mümkün olduğunda 5'li gruplar hâlinde getir.
+    @BatchSize(size = 5)
     @OneToMany(mappedBy = "musteri", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Siparis> siparisler = new ArrayList<>();
+
 }
