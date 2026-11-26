@@ -66,4 +66,15 @@ public class MusteriController {
     public String mergeTest(@PathVariable Long id) {
         return musteriService.mergeTest(id);
     }
+
+    @PutMapping("/flush-test/{id}")
+    public String flushTest(@PathVariable Long id) {
+        return musteriService.flushTest(id);
+    }
+
+    @PutMapping("/clear-test/{id}")
+    public String clearTest(@PathVariable Long id) {
+        return musteriService.clearTest(id);
+    }
+
 }

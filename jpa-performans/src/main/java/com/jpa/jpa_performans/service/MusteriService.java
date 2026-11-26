@@ -120,4 +120,28 @@ public class MusteriService {
         return "Merge tamamlandı: " + managedMusteri.getName();
 
     }
+
+    @Transactional
+    public String flushTest(Long id) {
+        Musteri musteri = musteriRepository.findById(id).orElseThrow(() -> new RuntimeException("Müşteri Bulunamadi"));
+
+        musteri.setName("flush test");
+        System.out.println("İsim Değiştirildi");
+
+        entityManager.flush();
+        System.out.println("flush gerçekleştirildi");
+        return "flush test başarili: " + musteri.getName();
+    }
+
+    @Transactional
+    public String clearTest(Long id) {
+        Musteri musteri = musteriRepository.findById(id).orElseThrow(() -> new RuntimeException("müşteri bulunamadi"));
+        System.out.println("Clear Öncesi: " + entityManager.contains(musteri));
+        musteri.setName("Clear Test");
+
+        entityManager.clear();
+
+        System.out.println("Clear sonrasi: " + entityManager.contains(musteri));
+        return "Clear Test Tamamlandi";
+    }
 }
