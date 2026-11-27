@@ -144,4 +144,46 @@ public class MusteriService {
         System.out.println("Clear sonrasi: " + entityManager.contains(musteri));
         return "Clear Test Tamamlandi";
     }
+
+    @Transactional
+    public String flushClearTest(Long id) {
+        Musteri musteri = musteriRepository.findById(id).orElseThrow(() -> new RuntimeException("müşteri bulunamadi"));
+        musteri.setName("flush clear test");
+
+        entityManager.flush();
+
+        System.out.println("flush yapildi");
+
+        entityManager.clear();
+
+        System.out.println("clear yapildi");
+
+        return "flush ve clear tamamlandi";
+    }
+
+    @Transactional
+    public void firstLevelCacheTest() {
+        Musteri musteri1 = musteriRepository.findById(2L)
+                .orElseThrow(() -> new RuntimeException("Müşteri Bulunamadı"));
+        System.out.println("Birinci sorgu tamamlandı.");
+        Musteri musteri2 = musteriRepository.findById(2L)
+                .orElseThrow(() -> new RuntimeException("Müşteri Bulunamadı"));
+        System.out.println("İkinci sorgu tamamlandı.");
+
+        System.out.println("Aynı nesne mi: " + (musteri1 == musteri2));
+    }
+
+    @Transactional
+    public Musteri musteriGetir(Long id) {
+        return musteriRepository.findById(id).orElseThrow();
+    }
+
+    @Transactional
+    public void cacheTest() {
+
+        Musteri musteri1 = musteriRepository.findById(1L).orElseThrow();
+        System.out.println("1.Transaction:" + musteri1.getName());
+
+    }
+
 }

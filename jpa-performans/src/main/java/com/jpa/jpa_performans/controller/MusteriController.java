@@ -77,4 +77,13 @@ public class MusteriController {
         return musteriService.clearTest(id);
     }
 
+    @PutMapping("/flush-clear-test/{id}")
+    public String flushClearTest(@PathVariable Long id) {
+        return musteriService.flushClearTest(id);
+    }
+
+    @GetMapping("/first-level-cache")
+    public void firstLevelCacheTest() {
+        musteriService.firstLevelCacheTest();
+    }
 }
