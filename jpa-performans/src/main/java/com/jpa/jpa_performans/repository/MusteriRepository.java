@@ -5,7 +5,8 @@ import java.util.List;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import com.jpa.jpa_performans.entity.Musteri;
 
 public interface MusteriRepository extends JpaRepository<Musteri, Long> {
@@ -20,4 +21,6 @@ public interface MusteriRepository extends JpaRepository<Musteri, Long> {
     @EntityGraph(attributePaths = { "siparisler" })
     @Query("SELECT m FROM Musteri m")
     List<Musteri> entityGraphIleGetir();
+
+    Page<Musteri> findAll(Pageable pageable);
 }

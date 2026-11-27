@@ -2,6 +2,7 @@ package com.jpa.jpa_performans.controller;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -86,4 +87,10 @@ public class MusteriController {
     public void firstLevelCacheTest() {
         musteriService.firstLevelCacheTest();
     }
+
+    @GetMapping("/sayfali")
+    public Page<Musteri> musterileriSayfaliGetir() {
+        return musteriService.musterileriSayfaliGetir();
+    }
+
 }
