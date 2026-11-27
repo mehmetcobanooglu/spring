@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jpa.jpa_performans.entity.Musteri;
@@ -89,8 +90,10 @@ public class MusteriController {
     }
 
     @GetMapping("/sayfali")
-    public Page<Musteri> musterileriSayfaliGetir() {
-        return musteriService.musterileriSayfaliGetir();
+    public Page<Musteri> musterileriSayfaliGetir(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size) {
+        return musteriService.musterileriSayfaliGetir(page, size);
     }
 
 }

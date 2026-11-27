@@ -1,8 +1,7 @@
 package com.jpa.jpa_performans.service;
 
 import java.util.List;
-
-import org.hibernate.engine.spi.EntityEntry;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -188,8 +187,12 @@ public class MusteriService {
 
     }
 
-    public Page<Musteri> musterileriSayfaliGetir() {
-        Pageable pageable = PageRequest.of(1, 5);
+    public Page<Musteri> musterileriSayfaliGetir(int page, int size) {
+        Pageable pageable = PageRequest.of(
+                page,
+                size,
+                Sort.by("name").ascending());
         return musteriRepository.findAll(pageable);
     }
+
 }
