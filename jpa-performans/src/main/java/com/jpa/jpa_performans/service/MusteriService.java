@@ -187,11 +187,13 @@ public class MusteriService {
 
     }
 
-    public Page<Musteri> musterileriSayfaliGetir(int page, int size) {
-        Pageable pageable = PageRequest.of(
-                page,
-                size,
-                Sort.by("name").ascending());
+    public Page<Musteri> musterileriSayfaliGetir(int page, int size, String sortBy, String direction) {
+
+        Sort sort = direction.equalsIgnoreCase("asc")
+                ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+
+        Pageable pageable = PageRequest.of(page, size, sort);
         return musteriRepository.findAll(pageable);
     }
 

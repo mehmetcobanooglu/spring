@@ -92,8 +92,11 @@ public class MusteriController {
     @GetMapping("/sayfali")
     public Page<Musteri> musterileriSayfaliGetir(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "5") int size) {
-        return musteriService.musterileriSayfaliGetir(page, size);
+            @RequestParam(defaultValue = "5") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String direction) {
+
+        return musteriService.musterileriSayfaliGetir(page, size, sortBy, direction);
     }
 
 }
